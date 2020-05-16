@@ -1,8 +1,8 @@
 // Set Router
 const router = require('express').Router()
 const UserController = require('../controllers/UserController')
-const { validate } = require('../middlewares/validators/UserValidator')
-const { checkValidationResult } = require('../middlewares/validators')
+const { validate } = require('../middlewares/validation/UserValidator')
+const { checkValidationResult } = require('../middlewares/validation')
 
 router.get('/')
 router.post('/', validate(), checkValidationResult, UserController.create)
