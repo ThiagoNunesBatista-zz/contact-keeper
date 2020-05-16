@@ -8,6 +8,7 @@ connectDB()
 // Set Express
 const PORT = process.env.PORT || 3333
 const app = express()
+app.use(express.json())
 const routes = require('./routes')
 app.use(routes)
 
