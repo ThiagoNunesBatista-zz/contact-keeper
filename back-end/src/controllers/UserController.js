@@ -1,5 +1,7 @@
 const User = require('../models/User')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const config = require('config')
 
 module.exports = {
 
@@ -27,7 +29,21 @@ module.exports = {
 
       user.password = await bcrypt.hash(password, salt)
       await user.save()
-      return res.status(201).json({ message: 'User Was Created' })
+
+      const payload = {
+        user: {
+          id: user.id
+        }
+      }
+
+      jwt.sign(payload, config.get('jwtSecret'), {
+        expiresIn: 3600
+      }, (err, token) => {
+        if (err) throw err
+
+        return res.status(201).json({ message: 'User Was Created', token })
+      })
+
     } catch (err) {
       res.status(500).json({ message: err.message })
     }
