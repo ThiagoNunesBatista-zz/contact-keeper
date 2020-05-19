@@ -1,7 +1,7 @@
 // External Imports
 // JavaScript
 import React, { createContext, useReducer } from 'react'
-import { v4 as uuid} from 'uuid'
+import { v4 as uuid } from 'uuid'
 
 // Internal Imports
 // JavaScript
@@ -22,27 +22,9 @@ const ContactContext = createContext()
 // Provider -> Contains All States and Actions
 export const ContactContextProvider = props => {
   const initialState = {
+    currentContact: null,
+    filtered: null,
     contacts: [
-      {
-        id: 1,
-        name: 'Thiago Nunes Batista',
-        phone: '111-111-1111',
-        type: 'personal',
-        email: 'thiago@email.com'
-      },
-
-      {
-        id: 2,
-        name: 'John Doe',
-        phone: '222-222-2222',
-        type: 'personal'
-      },
-      {
-        id: 3,
-        name: 'Jane Doe',
-        phone: '333-333-3333',
-        type: 'personal'
-      }
 
     ]
   }
@@ -70,21 +52,56 @@ export const ContactContextProvider = props => {
   }
 
   // Set Current Contact
+  const setCurrent = contact => {
+    dispatch({
+      type: SET_CURRENT,
+      payload: contact
+    })
+  }
 
   // Clear Current Contact
+  const clearCurrent = () => {
+    dispatch({
+      type: CLEAR_CURRENT
+    })
+  }
 
   // Update Contact
+  const updateContact = contact => {
+    dispatch({
+      type: UPDATE_CONTACT,
+      payload: contact
+    })
+  }
 
   // Filter Contacts
+  const filterContacts = (text) => {
+    dispatch({
+      type: FILTER_CONTACTS,
+      payload: text
+    })
+  }
 
   // Clear Filter
+  const clearFilter = () => {
+    dispatch({
+      type: CLEAR_FILTER
+    })
+  }
 
   return (
     <ContactContext.Provider
       value={{
-        contacts: state.contacts,
         addContact,
-        deleteContact
+        clearCurrent,
+        clearFilter,
+        contacts: state.contacts,
+        currentContact: state.currentContact,
+        deleteContact,
+        filterContacts,
+        filtered: state.filtered,
+        setCurrent,
+        updateContact
       }}
     >
       {props.children}
