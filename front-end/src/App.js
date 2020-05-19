@@ -7,13 +7,14 @@ import React from 'react'
 import './App.css'
 
 // JavaScript
+import { ContactContextProvider } from './context/contact/ContactContext'
 import Routes from './routes'
 
 const App = () => {
   return (
-    <>
+    <ContactContextProvider>
       <Routes />
-    </>
+    </ContactContextProvider>
   )
 }
 
