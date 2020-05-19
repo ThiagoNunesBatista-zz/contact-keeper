@@ -1,9 +1,18 @@
+// External Imports
+// JavaScript
 import React from 'react'
+
+// Internal Imports
+// CSS
+import './App.css'
+
+// JavaScript
+import Routes from './routes'
 
 const App = () => {
   return (
     <>
-      <h1>Contact Keeper </h1>
+      <Routes />
     </>
   )
 }
