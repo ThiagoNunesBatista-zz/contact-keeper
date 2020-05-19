@@ -7,14 +7,17 @@ import React from 'react'
 import './App.css'
 
 // JavaScript
+import { AuthContextProvider } from './context/auth/AuthContext'
 import { ContactContextProvider } from './context/contact/ContactContext'
 import Routes from './routes'
 
 const App = () => {
   return (
-    <ContactContextProvider>
-      <Routes />
-    </ContactContextProvider>
+    <AuthContextProvider>
+      <ContactContextProvider>
+        <Routes />
+      </ContactContextProvider>
+    </AuthContextProvider>
   )
 }
 
