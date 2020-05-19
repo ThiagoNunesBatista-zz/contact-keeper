@@ -1,7 +1,7 @@
 // External Imports
 // JavaScript
 import React, { createContext, useReducer } from 'react'
-import uuid from 'uuid'
+import { v4 as uuid} from 'uuid'
 
 // Internal Imports
 // JavaScript
@@ -51,6 +51,15 @@ export const ContactContextProvider = props => {
 
   // THE ACTIONS
   // Add Contact
+  const addContact = contact => {
+    const payload = contact
+    payload.id = uuid()
+
+    dispatch({
+      type: ADD_CONTACT,
+      payload
+    })
+  }
 
   // Delete Contact
 
@@ -67,7 +76,8 @@ export const ContactContextProvider = props => {
   return (
     <ContactContext.Provider
       value={{
-        contacts: state.contacts
+        contacts: state.contacts,
+        addContact
       }}
     >
       {props.children}

@@ -1,6 +1,5 @@
 // External Imports
 // JavaScript
-import PropTypes from 'prop-types'
 import React from 'react'
 import ContactContext from '../../context/contact/ContactContext'
 
@@ -22,10 +21,6 @@ const ContactItem = ({ contact: { name, email, phone, type } }) => {
       </p>
     </div>
   )
-}
-
-ContactItem.propTypes = {
-  contacts: PropTypes.object.isRequired
 }
 
 export default ContactItem

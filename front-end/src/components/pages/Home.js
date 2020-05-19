@@ -5,11 +5,12 @@ import React from 'react'
 // Internal Imports
 // JavaScript
 import Contacts from '../contacts/Contacts'
+import ContactForm from '../contacts/ContactForm'
 
 const Home = () => {
   return (
     <div className='grid-2'>
-      <h1>Home</h1>
+      <ContactForm />
       <Contacts />
     </div>
   )
