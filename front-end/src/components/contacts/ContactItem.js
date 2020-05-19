@@ -1,9 +1,19 @@
 // External Imports
 // JavaScript
-import React from 'react'
+import React, { useContext } from 'react'
+
+// Internal Imports
+// JavaScript
 import ContactContext from '../../context/contact/ContactContext'
 
-const ContactItem = ({ contact: { name, email, phone, type } }) => {
+const ContactItem = ({ contact: { id, name, email, phone, type } }) => {
+  const context = useContext(ContactContext)
+  const { deleteContact } = context
+
+  const handleDelete = () => {
+    deleteContact(id)
+  }
+
   return (
     <div className='card bg-light'>
       <h3 className='text-primary text-left'>{name[0].toUpperCase() + name.slice(1)}
@@ -17,7 +27,7 @@ const ContactItem = ({ contact: { name, email, phone, type } }) => {
 
       <p>
         <button className='btn btn-dark btn-sm'>Edit</button>
-        <button className='btn btn-danger btn-sm'>Delete</button>
+        <button className='btn btn-danger btn-sm' onClick={handleDelete}>Delete</button>
       </p>
     </div>
   )
