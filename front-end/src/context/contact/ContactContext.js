@@ -27,7 +27,8 @@ export const ContactContextProvider = props => {
         id: 1,
         name: 'Thiago Nunes Batista',
         phone: '111-111-1111',
-        type: 'personal'
+        type: 'personal',
+        email: 'thiago@email.com'
       },
 
       {

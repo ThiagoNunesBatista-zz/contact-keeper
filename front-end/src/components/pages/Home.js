@@ -1,9 +1,16 @@
+// External Imports
+// JavaScript
 import React from 'react'
+
+// Internal Imports
+// JavaScript
+import Contacts from '../contacts/Contacts'
 
 const Home = () => {
   return (
-    <div>
+    <div className='grid-2'>
       <h1>Home</h1>
+      <Contacts />
     </div>
   )
 }
