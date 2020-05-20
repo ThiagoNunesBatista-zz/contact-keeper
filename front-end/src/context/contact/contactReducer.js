@@ -1,3 +1,7 @@
+// External Imports
+// JavaScript
+import React from 'react'
+
 // Internal Imports
 // JavaScript
 import {
@@ -10,7 +14,7 @@ import {
   CLEAR_FILTER
 } from '../types'
 
-const contactReducer = (state, action) => {
+export default (state, action) => {
   switch (action.type) {
     case ADD_CONTACT:
       return {
@@ -21,48 +25,11 @@ const contactReducer = (state, action) => {
     case DELETE_CONTACT:
       return {
         ...state,
-        contacts: state.contacts.filter(element => {
-          return element.id !== action.payload
-        })
-      }
-
-    case SET_CURRENT:
-      return {
-        ...state,
-        currentContact: action.payload
-      }
-
-    case CLEAR_CURRENT:
-      return {
-        ...state,
-        currentContact: null
-      }
-
-    case UPDATE_CONTACT:
-      return {
-        ...state,
-        currentContact: null,
-        contacts: state.contacts.map(contact => contact.id === action.payload.id ? action.payload : contact)
-      }
-
-    case FILTER_CONTACTS:
-      return {
-        ...state,
-        filtered: state.contacts.filter(contact => {
-          const regex = new RegExp(`${action.payload}`, 'gi')
-          return contact.name.match(regex)
-        })
-      }
-
-    case CLEAR_FILTER:
-      return {
-        ...state,
-        filtered: null
+        contacts: state.contacts.find(element => element.id !== action.payload
+        )
       }
 
     default:
       return state
   }
 }
-
-export default contactReducer

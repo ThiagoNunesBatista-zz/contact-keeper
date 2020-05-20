@@ -24,9 +24,7 @@ export const ContactContextProvider = props => {
   const initialState = {
     currentContact: null,
     filtered: null,
-    contacts: [
-
-    ]
+    contacts: []
   }
 
   const [state, dispatch] = useReducer(contactReducer, initialState)

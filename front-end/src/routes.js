@@ -7,7 +7,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 // JavaScript
 import About from './components/pages/About'
 import Home from './components/pages/Home'
+import Login from './components/auth/Login'
 import Navbar from './components/layout/Navbar'
+import Register from './components/auth/Register'
 
 const Routes = () => {
   return (
@@ -15,8 +17,11 @@ const Routes = () => {
       <Navbar />
       <div className='container'>
         <Switch>
-          <Route exact path='/' component={Home} />
           <Route exact path='/about' component={About} />
+          <Route exact path='/' component={Home} />
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/register' component={Register} />
+
         </Switch>
       </div>
     </Router>
