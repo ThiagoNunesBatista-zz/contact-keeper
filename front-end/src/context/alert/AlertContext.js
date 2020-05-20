@@ -18,7 +18,6 @@ export const AlertContextProvider = props => {
 
   // Set Alert
   const setAlert = (message, type, timeout = 5000) => {
-
     const id = uuid()
     dispatch({
       type: SET_ALERT,

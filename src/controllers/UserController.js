@@ -43,7 +43,6 @@ module.exports = {
 
         return res.status(201).json({ message: 'User Was Created', token })
       })
-
     } catch (err) {
       res.status(500).json({ message: err.message })
     }

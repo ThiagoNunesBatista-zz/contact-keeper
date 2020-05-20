@@ -1,10 +1,11 @@
 // External Imports
 // JavaScript
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 // Internal Imports
 // JavaScrit
 import AlertContext from '../../context/alert/AlertContext'
+import AuthContext from '../../context/auth/AuthContext'
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -14,14 +15,26 @@ const Register = () => {
     confirmPassword: ''
   })
 
-  const context = useContext(AlertContext)
-  const { setAlert } = context
+  const alertContext = useContext(AlertContext)
+  const { setAlert } = alertContext
+
+  const authContext = useContext(AuthContext)
+  const { clearErrors, registerUser, errors } = authContext
 
   const { name, email, password, confirmPassword } = user
 
   const handleChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value })
   }
+
+  useEffect(() => {
+    if (errors.length > 0) {
+      errors.map(current => (
+        setAlert(current.msg, 'danger')
+      ))
+      clearErrors()
+    }
+  }, [errors])
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -32,6 +45,8 @@ const Register = () => {
       setAlert('Passwords Do not Match', 'danger')
     } else if (password.length < 5) {
       setAlert('Password Must Be At Least 5 Characters', 'danger')
+    } else {
+      registerUser({ name, email, password })
     }
   }
 
