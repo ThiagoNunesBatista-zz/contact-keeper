@@ -1,6 +1,10 @@
 // External Imports
 // JavaScript
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+
+// Internal Imports
+// JavaScrit
+import AlertContext from '../../context/alert/AlertContext'
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -10,6 +14,9 @@ const Register = () => {
     confirmPassword: ''
   })
 
+  const context = useContext(AlertContext)
+  const { setAlert } = context
+
   const { name, email, password, confirmPassword } = user
 
   const handleChange = e => {
@@ -18,7 +25,14 @@ const Register = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log('Submit Form')
+
+    if (name === '' || email === '' || password === '') {
+      setAlert('Please enter all fields', 'danger')
+    } else if (password !== confirmPassword) {
+      setAlert('Passwords Do not Match', 'danger')
+    } else if (password.length < 5) {
+      setAlert('Password Must Be At Least 5 Characters', 'danger')
+    }
   }
 
   return (

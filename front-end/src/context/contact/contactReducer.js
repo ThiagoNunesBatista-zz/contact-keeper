@@ -1,7 +1,3 @@
-// External Imports
-// JavaScript
-import React from 'react'
-
 // Internal Imports
 // JavaScript
 import {

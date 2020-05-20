@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 // Internal Modules
 // JavaScript
 import About from './components/pages/About'
+import Alerts from './components/layout/Alerts'
 import Home from './components/pages/Home'
 import Login from './components/auth/Login'
 import Navbar from './components/layout/Navbar'
@@ -16,6 +17,7 @@ const Routes = () => {
     <Router>
       <Navbar />
       <div className='container'>
+        <Alerts />
         <Switch>
           <Route exact path='/about' component={About} />
           <Route exact path='/' component={Home} />

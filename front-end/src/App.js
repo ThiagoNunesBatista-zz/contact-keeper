@@ -7,6 +7,7 @@ import React from 'react'
 import './App.css'
 
 // JavaScript
+import { AlertContextProvider } from './context/alert/AlertContext'
 import { AuthContextProvider } from './context/auth/AuthContext'
 import { ContactContextProvider } from './context/contact/ContactContext'
 import Routes from './routes'
@@ -15,7 +16,9 @@ const App = () => {
   return (
     <AuthContextProvider>
       <ContactContextProvider>
-        <Routes />
+        <AlertContextProvider>
+          <Routes />
+        </AlertContextProvider>
       </ContactContextProvider>
     </AuthContextProvider>
   )
