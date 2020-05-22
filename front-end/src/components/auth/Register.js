@@ -32,7 +32,7 @@ const Register = props => {
       props.history.push('/')
     }
 
-    if (errors !== undefined) {
+    if (errors !== null) {
       if (errors.length > 0) {
         errors.map(current => (
           setAlert(current.msg, 'danger')
