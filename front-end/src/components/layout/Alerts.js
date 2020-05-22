@@ -6,11 +6,10 @@ import React, { useContext } from 'react'
 import AlertContext from '../../context/alert/AlertContext'
 
 const Alerts = () => {
-  const context = useContext(AlertContext)
-  const { alerts } = context
+  const alertContext = useContext(AlertContext)
 
   return (
-    alerts.length > 0 && alerts.map(current =>
+    alertContext.alerts.length > 0 && alertContext.alerts.map(current =>
       <div key={current.id} className={`alert alert-${current.type}`}>
         <i className='fas fa-info-circle' /> {current.message}
       </div>

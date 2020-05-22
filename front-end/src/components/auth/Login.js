@@ -1,12 +1,39 @@
 // External Imports
 // JavaScript
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
-const Login = () => {
+// Internal Imports
+// JavaScript
+import AlertContext from '../../context/alert/AlertContext'
+import AuthContext from '../../context/auth/AuthContext'
+
+const Login = props => {
+  const authContext = useContext(AuthContext)
+
+  const { errors, clearErrors, isAuthenticated, loginUser } = authContext
+
+  const alertContext = useContext(AlertContext)
+  const { setAlert } = alertContext
+
   const [user, setUser] = useState({
     email: '',
     password: ''
   })
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/')
+    }
+    if (errors !== null && errors !== undefined) {
+      if (errors.length > 0) {
+        errors.map(current => (
+          setAlert(current.msg, 'danger')
+        ))
+        clearErrors()
+      }
+    }
+    // eslint-disable-next-line
+  }, [errors, isAuthenticated, props.history])
 
   const { email, password } = user
 
@@ -16,7 +43,11 @@ const Login = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log('Submit Form')
+    if (email === '' || password === '') {
+      setAlert('Please enter all fields', 'danger')
+    } else {
+      loginUser({ email, password })
+    }
   }
 
   return (

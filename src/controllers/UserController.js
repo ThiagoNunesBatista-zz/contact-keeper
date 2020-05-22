@@ -16,7 +16,7 @@ module.exports = {
       let user = await User.findOne({ email })
 
       if (user) {
-        return res.status(400).json({ message: 'User Already Exists' })
+        return res.status(400).json({ errors: [{ msg: 'User Already Exists' }] })
       }
 
       user = new User({

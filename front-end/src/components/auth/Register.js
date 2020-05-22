@@ -7,7 +7,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import AlertContext from '../../context/alert/AlertContext'
 import AuthContext from '../../context/auth/AuthContext'
 
-const Register = () => {
+const Register = props => {
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -19,7 +19,7 @@ const Register = () => {
   const { setAlert } = alertContext
 
   const authContext = useContext(AuthContext)
-  const { clearErrors, registerUser, errors } = authContext
+  const { clearErrors, errors, isAuthenticated, registerUser } = authContext
 
   const { name, email, password, confirmPassword } = user
 
@@ -28,13 +28,20 @@ const Register = () => {
   }
 
   useEffect(() => {
-    if (errors.length > 0) {
-      errors.map(current => (
-        setAlert(current.msg, 'danger')
-      ))
-      clearErrors()
+    if (isAuthenticated) {
+      props.history.push('/')
     }
-  }, [errors])
+
+    if (errors !== undefined) {
+      if (errors.length > 0) {
+        errors.map(current => (
+          setAlert(current.msg, 'danger')
+        ))
+        clearErrors()
+      }
+    }
+    // eslint-disable-next-line
+  }, [errors, isAuthenticated, props.history])
 
   const handleSubmit = e => {
     e.preventDefault()
