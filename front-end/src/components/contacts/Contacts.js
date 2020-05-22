@@ -14,14 +14,9 @@ const Contacts = () => {
   // Destructuring - Getting The Needed Values
   const { contacts, filtered } = context
 
-  if (contacts !== undefined && contacts.length === 0) {
-    return <h3>Add a Contact First</h3>
-  }
-
   return (
     <>
-      {filtered !== null && filtered !== undefined && filtered.length > 0 ? filtered.map(current => <ContactItem contact={current} key={current._id} />) : contacts.map(current => <ContactItem contact={current} key={current._id} />
-      )}
+      {filtered ? filtered.map(current => <ContactItem contact={current} key={current._id} />) : (contacts ? contacts.map(current => <ContactItem contact={current} key={current._id} />) : '')}
     </>
   )
 }

@@ -7,13 +7,18 @@ import { Link } from 'react-router-dom'
 // Internal Imports
 // JavaScript
 import AuthContext from '../../context/auth/AuthContext'
+import ContactContext from '../../context/contact/ContactContext'
 
 const Navbar = ({ title, icon }) => {
   const authContext = useContext(AuthContext)
 
   const { isAuthenticated, logout, user } = authContext
 
+  const contactContext = useContext(ContactContext)
+  const { clearAll } = contactContext
+
   const handleLogout = () => {
+    clearAll()
     logout()
   }
 

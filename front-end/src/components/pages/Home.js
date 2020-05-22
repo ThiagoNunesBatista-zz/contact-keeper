@@ -11,24 +11,25 @@ import ContactFilter from '../contacts/ContactFilter'
 import ContactForm from '../contacts/ContactForm'
 
 const Home = () => {
-  const context = useContext(ContactContext)
   const authContext = useContext(AuthContext)
-
   const { loadUser } = authContext
+
+  const contactsContext = useContext(ContactContext)
+  const { contacts, loadContacts } = contactsContext
 
   useEffect(() => {
     loadUser()
+    loadContacts()
     // eslint-disable-next-line
   }, [])
 
-  const { contacts } = context
   return (
     <div className='grid-2'>
       <div>
         <ContactForm />
       </div>
       <div>
-        {contacts !== undefined && contacts.length > 0 ? <ContactFilter /> : ''}
+        {contacts !== undefined && contacts !== null && contacts.length > 0 ? <ContactFilter /> : ''}
         <Contacts />
       </div>
     </div>

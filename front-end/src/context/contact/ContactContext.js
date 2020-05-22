@@ -5,16 +5,17 @@ import React, { createContext, useReducer } from 'react'
 
 // Internal Imports
 // JavaScript
-import AuthContext from '../../context/auth/AuthContext'
 import contactReducer from './contactReducer'
 import {
   ADD_CONTACT,
-  DELETE_CONTACT,
-  SET_CURRENT,
   CLEAR_CURRENT,
-  UPDATE_CONTACT,
+  CLEAR_ALL,
+  CLEAR_FILTER,
+  DELETE_CONTACT,
   FILTER_CONTACTS,
-  CLEAR_FILTER
+  LOAD_CONTACTS,
+  SET_CURRENT,
+  UPDATE_CONTACT
 } from '../types'
 
 // Create Context To Be The Exported Default
@@ -31,6 +32,29 @@ export const ContactContextProvider = props => {
   const [state, dispatch] = useReducer(contactReducer, initialState)
 
   // THE ACTIONS
+
+  // Load Contacts
+  const loadContacts = async () => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': window.localStorage.token
+      }
+    }
+
+    const url = '/contacts'
+
+    try {
+      const res = await axios.get(url, null, config)
+      dispatch({
+        type: LOAD_CONTACTS,
+        payload: res.data.contacts
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   // Add Contact
   const addContact = async contact => {
     const url = '/contacts'
@@ -48,7 +72,7 @@ export const ContactContextProvider = props => {
         payload: res.data.contact
       })
     } catch (error) {
-      console.log('ERRÃO')
+      console.log(error)
     }
   }
 
@@ -69,6 +93,7 @@ export const ContactContextProvider = props => {
         payload: id
       })
     } catch (error) {
+      console.log(error)
     }
   }
 
@@ -89,7 +114,6 @@ export const ContactContextProvider = props => {
 
   // Update Contact
   const updateContact = async contact => {
-
     const url = '/contacts'
 
     const config = {
@@ -106,7 +130,6 @@ export const ContactContextProvider = props => {
         payload: { outdatedContact: contact, updatedContact: res.data.contact }
       })
     } catch (error) {
-      console.log('ERRÃO')
       console.log(error)
     }
   }
@@ -126,10 +149,18 @@ export const ContactContextProvider = props => {
     })
   }
 
+  // Clear All Contacts
+  const clearAll = () => {
+    dispatch({
+      type: CLEAR_ALL
+    })
+  }
+
   return (
     <ContactContext.Provider
       value={{
         addContact,
+        clearAll,
         clearCurrent,
         clearFilter,
         contacts: state.contacts,
@@ -137,6 +168,7 @@ export const ContactContextProvider = props => {
         deleteContact,
         filterContacts,
         filtered: state.filtered,
+        loadContacts,
         setCurrent,
         updateContact
       }}
