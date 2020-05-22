@@ -22,7 +22,7 @@ export default (state, action) => {
       return {
         ...state,
         contacts: state.contacts.filter(element => {
-          return element.id !== action.payload
+          return element._id !== action.payload
         })
       }
 

@@ -53,11 +53,23 @@ export const ContactContextProvider = props => {
   }
 
   // Delete Contact
-  const deleteContact = id => {
-    dispatch({
-      type: DELETE_CONTACT,
-      payload: id
-    })
+  const deleteContact = async id => {
+    const url = `/contacts/${id}`
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': window.localStorage.token
+      }
+    }
+
+    try {
+      await axios.delete(url, id, config)
+      dispatch({
+        type: DELETE_CONTACT,
+        payload: id
+      })
+    } catch (error) {
+    }
   }
 
   // Set Current Contact
