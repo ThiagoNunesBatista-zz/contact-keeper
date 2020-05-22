@@ -19,10 +19,10 @@ const Contacts = () => {
   }
 
   return (
-    <div>
-      {filtered !== null && filtered !== undefined  && filtered.length > 0 ? filtered.map(current => <ContactItem contact={current} key={current.id} />) : contacts.map(current => <ContactItem contact={current} key={current.id} />
+    <>
+      {filtered !== null && filtered !== undefined && filtered.length > 0 ? filtered.map(current => <ContactItem contact={current} key={current._id} />) : contacts.map(current => <ContactItem contact={current} key={current._id} />
       )}
-    </div>
+    </>
   )
 }
 

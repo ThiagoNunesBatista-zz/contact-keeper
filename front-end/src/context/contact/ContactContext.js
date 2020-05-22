@@ -1,10 +1,11 @@
 // External Imports
 // JavaScript
+import axios from 'axios'
 import React, { createContext, useReducer } from 'react'
-import { v4 as uuid } from 'uuid'
 
 // Internal Imports
 // JavaScript
+import AuthContext from '../../context/auth/AuthContext'
 import contactReducer from './contactReducer'
 import {
   ADD_CONTACT,
@@ -31,14 +32,24 @@ export const ContactContextProvider = props => {
 
   // THE ACTIONS
   // Add Contact
-  const addContact = contact => {
-    const payload = contact
-    payload.id = uuid()
+  const addContact = async contact => {
+    const url = '/contacts'
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': window.localStorage.token
+      }
+    }
 
-    dispatch({
-      type: ADD_CONTACT,
-      payload
-    })
+    try {
+      const res = await axios.post(url, contact, config)
+      dispatch({
+        type: ADD_CONTACT,
+        payload: res.data.contact
+      })
+    } catch (error) {
+      console.log('ERRÃO')
+    }
   }
 
   // Delete Contact
@@ -65,11 +76,27 @@ export const ContactContextProvider = props => {
   }
 
   // Update Contact
-  const updateContact = contact => {
-    dispatch({
-      type: UPDATE_CONTACT,
-      payload: contact
-    })
+  const updateContact = async contact => {
+
+    const url = '/contacts'
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': window.localStorage.token
+      }
+    }
+
+    try {
+      const res = await axios.post(url, contact, config)
+      dispatch({
+        type: UPDATE_CONTACT,
+        payload: { outdatedContact: contact, updatedContact: res.data.contact }
+      })
+    } catch (error) {
+      console.log('ERRÃO')
+      console.log(error)
+    }
   }
 
   // Filter Contacts
