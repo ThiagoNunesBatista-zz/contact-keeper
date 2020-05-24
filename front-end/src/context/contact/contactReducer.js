@@ -50,7 +50,10 @@ export default (state, action) => {
       return {
         ...state,
         currentContact: null,
-        contacts: state.contacts.map(contact => contact._id === action.payload.outdatedContact._id ? action.payload.updatedContact : contact)
+        contacts: state.contacts.map(contact => {
+          return contact._id === action.payload.outdatedContact._id ? action.payload.updatedContact : contact
+        }
+        )
       }
 
     case FILTER_CONTACTS:

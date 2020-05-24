@@ -51,10 +51,11 @@ module.exports = {
       if (email) contactFields.email = email
       if (phone) contactFields.phone = phone
       if (type) contactFields.type = type
-
       contact = await Contact.findByIdAndUpdate(req.params.id, { $set: contactFields }, { useFindAndModify: false })
 
-      return res.status(201).json({ contact })
+      contactFields._id = contact._id
+
+      return res.status(201).json({ contact: contactFields })
     } catch (err) {
       res.status(500).json({ message: err.message })
     }

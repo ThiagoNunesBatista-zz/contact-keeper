@@ -55,8 +55,7 @@ export const ContactContextProvider = props => {
         payload: res.data.contacts
       })
     } catch (error) {
-      const errors = error.response.data.errors
-      errors.map(current => setAlert(current.msg, 'danger'))
+      console.log(error)
     }
   }
 
@@ -121,7 +120,7 @@ export const ContactContextProvider = props => {
 
   // Update Contact
   const updateContact = async contact => {
-    const url = '/contacts'
+    const url = `/contacts/${contact._id}`
 
     const config = {
       headers: {
@@ -131,7 +130,8 @@ export const ContactContextProvider = props => {
     }
 
     try {
-      const res = await axios.post(url, contact, config)
+      const res = await axios.put(url, contact, config)
+
       dispatch({
         type: UPDATE_CONTACT,
         payload: { outdatedContact: contact, updatedContact: res.data.contact }
