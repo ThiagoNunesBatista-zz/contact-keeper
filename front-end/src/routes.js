@@ -1,7 +1,7 @@
 // External Modules
 // JavaScript
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Redirect, BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 // Internal Modules
 // JavaScript
@@ -24,7 +24,9 @@ const Routes = () => {
           <PrivateRoute exact path='/' component={Home} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={Register} />
-
+          <Route>
+            <Redirect to={{ pathname: '/' }} />
+          </Route>
         </Switch>
       </div>
     </Router>
