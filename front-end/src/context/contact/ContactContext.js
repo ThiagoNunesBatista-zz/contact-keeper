@@ -1,11 +1,13 @@
 // External Imports
 // JavaScript
 import axios from 'axios'
-import React, { createContext, useReducer } from 'react'
+import React, { createContext, useContext, useReducer } from 'react'
 
 // Internal Imports
 // JavaScript
+import AlertContext from '../../context/alert/AlertContext'
 import contactReducer from './contactReducer'
+
 import {
   ADD_CONTACT,
   CLEAR_CURRENT,
@@ -31,6 +33,9 @@ export const ContactContextProvider = props => {
 
   const [state, dispatch] = useReducer(contactReducer, initialState)
 
+  const alertContext = useContext(AlertContext)
+  const { setAlert } = alertContext
+
   // THE ACTIONS
   // Load Contacts
   const loadContacts = async () => {
@@ -50,7 +55,8 @@ export const ContactContextProvider = props => {
         payload: res.data.contacts
       })
     } catch (error) {
-      console.log(error)
+      const errors = error.response.data.errors
+      errors.map(current => setAlert(current.msg, 'danger'))
     }
   }
 
@@ -71,7 +77,8 @@ export const ContactContextProvider = props => {
         payload: res.data.contact
       })
     } catch (error) {
-      console.log(error)
+      const errors = error.response.data.errors
+      errors.map(current => setAlert(current.msg, 'danger'))
     }
   }
 
@@ -92,7 +99,8 @@ export const ContactContextProvider = props => {
         payload: id
       })
     } catch (error) {
-      console.log(error)
+      const errors = error.response.data.errors
+      errors.map(current => setAlert(current.msg, 'danger'))
     }
   }
 
@@ -129,7 +137,8 @@ export const ContactContextProvider = props => {
         payload: { outdatedContact: contact, updatedContact: res.data.contact }
       })
     } catch (error) {
-      console.log(error)
+      const errors = error.response.data.errors
+      errors.map(current => setAlert(current.msg, 'danger'))
     }
   }
 

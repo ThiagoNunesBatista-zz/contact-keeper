@@ -15,11 +15,11 @@ import Routes from './routes'
 const App = () => {
   return (
     <AuthContextProvider>
-      <ContactContextProvider>
-        <AlertContextProvider>
+      <AlertContextProvider>
+        <ContactContextProvider>
           <Routes />
-        </AlertContextProvider>
-      </ContactContextProvider>
+        </ContactContextProvider>
+      </AlertContextProvider>
     </AuthContextProvider>
   )
 }

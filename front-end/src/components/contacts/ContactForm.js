@@ -56,7 +56,7 @@ const ContactForm = () => {
 
       <input type='text' name='name' placeholder='Name' value={name} onChange={handleChange} />
 
-      <input type='email' name='email' placeholder='Email' value={email} onChange={handleChange} />
+      <input type='text' name='email' placeholder='Email' value={email} onChange={handleChange} />
 
       <input type='text' name='phone' placeholder='Phone' value={phone} onChange={handleChange} />
 
