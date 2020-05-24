@@ -32,7 +32,6 @@ export const ContactContextProvider = props => {
   const [state, dispatch] = useReducer(contactReducer, initialState)
 
   // THE ACTIONS
-
   // Load Contacts
   const loadContacts = async () => {
     const config = {
